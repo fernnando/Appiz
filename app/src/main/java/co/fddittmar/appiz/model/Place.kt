@@ -7,6 +7,6 @@ import com.google.gson.annotations.SerializedName
  */
 data class Place(
         @SerializedName("name") val name: String,
-        @SerializedName("height") val height: String
+        @SerializedName("price") val price: Float
 )
 

@@ -41,7 +41,7 @@ class PlaceAdapter(private val places: List<Place>,
             val description = itemView.tvDescription
 
             title.text = place.name
-            description.text = place.height
+            description.text = place.price.toString()
         }
     }
 }
