@@ -21,6 +21,7 @@ fun BottomNavigationView.disableShiftMode() {
                 item.setChecked(item.itemData.isChecked)
             }
         }
+
     } catch (t: Throwable) {
         Log.e("BottomNavigationHelper", "Unable to get shift mode field", t)
     } catch (e: IllegalAccessException) {
