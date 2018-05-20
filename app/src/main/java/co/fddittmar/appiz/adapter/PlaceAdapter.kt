@@ -35,7 +35,6 @@ class PlaceAdapter(private val places: List<Place>,
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-
         fun bindView(place: Place) {
             val title = itemView.tvTitle
             val description = itemView.tvDescription
