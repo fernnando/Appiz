@@ -1,7 +1,8 @@
 package co.fddittmar.appiz.network
 
 import co.fddittmar.appiz.model.Place
-import io.reactivex.Observable
+import retrofit2.Call
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 /**
@@ -9,16 +10,20 @@ import retrofit2.http.GET
  */
 
 interface APIService{
+
+
+
     @GET("people/1")
-    fun getPlace() : Observable<Place>
+    fun getPlace() : Call<Place>
 
 
     companion object Factory {
+        val BASE_URL: String = "https://swapi.co/api/"
+
         fun create(): APIService {
             val retrofit = retrofit2.Retrofit.Builder()
-                    .addCallAdapterFactory(retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
-                    .baseUrl("https://swapi.co/api/")
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
             return retrofit.create(APIService::class.java)

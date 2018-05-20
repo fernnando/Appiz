@@ -13,10 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 
-
-
-
-
 class LoginActivity : AppCompatActivity() {
 
     var mAuth = FirebaseAuth.getInstance()
