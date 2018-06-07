@@ -10,8 +10,10 @@ import co.fddittmar.appiz.model.Place
 val DATABASE_NAME ="AppizDB"
 val TABLE_NAME="Places"
 val COL_ID = "id"
+val COL_USERNAME = "username"
 val COL_NAME = "name"
 val COL_PRICE = "price"
+val COL_PHONE_NUMBER = "phone_number"
 val COL_LATITUDE = "latitude"
 val COL_LONGITUDE = "longitude"
 
@@ -21,8 +23,10 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context,DATABASE_
 
         val createTable = "CREATE TABLE " + TABLE_NAME +" (" +
                 COL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COL_USERNAME + " VARCHAR(256)," +
                 COL_NAME + " VARCHAR(256)," +
                 COL_PRICE +" INTEGER," +
+                COL_PHONE_NUMBER + " VARCHAR(20)," +
                 COL_LATITUDE + " REAL," +
                 COL_LONGITUDE + " REAL)"
 
@@ -38,8 +42,10 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context,DATABASE_
     fun insertData(place : Place){
         val db = this.writableDatabase
         var cv = ContentValues()
+        cv.put(COL_USERNAME, place.username)
         cv.put(COL_NAME,place.name)
         cv.put(COL_PRICE,place.price)
+        cv.put(COL_PHONE_NUMBER, place.phoneNumber)
         cv.put(COL_LATITUDE, place.latitude)
         cv.put(COL_LONGITUDE, place.longitude)
         var result = db.insert(TABLE_NAME,null,cv)
@@ -49,18 +55,20 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context,DATABASE_
             Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show()
     }
 
-    fun readData() : MutableList<Place>{
+    fun readData(username: String) : MutableList<Place>{
         var list : MutableList<Place> = ArrayList()
 
         val db = this.readableDatabase
-        val query = "Select * from " + TABLE_NAME
+        val query = "Select * from " + TABLE_NAME + " where " + COL_USERNAME + "=\"" + username + "\""
         val result = db.rawQuery(query,null)
         if(result.moveToFirst()){
             do {
-                var place = Place("", 0.0f, "")
+                var place = Place("", "", 0.0f, "")
                 place.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
+                place.username = result.getString(result.getColumnIndex(COL_USERNAME))
                 place.name = result.getString(result.getColumnIndex(COL_NAME))
                 place.price = result.getString(result.getColumnIndex(COL_PRICE)).toFloat()
+                place.phoneNumber = result.getString(result.getColumnIndex(COL_PHONE_NUMBER))
                 place.latitude = result.getString(result.getColumnIndex(COL_LATITUDE)).toDouble()
                 place.longitude = result.getString(result.getColumnIndex(COL_LONGITUDE)).toDouble()
                 list.add(place)

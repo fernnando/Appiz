@@ -1,6 +1,7 @@
 package co.fddittmar.appiz.view
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,11 +9,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import co.fddittmar.appiz.MainActivity
 
 import co.fddittmar.appiz.R
 import co.fddittmar.appiz.adapter.PlaceAdapter
 import co.fddittmar.appiz.db.DatabaseHandler
 import co.fddittmar.appiz.model.Place
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_places.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +31,8 @@ class PlacesFragment : Fragment() {
 
 
     private var places: MutableList<Place> = mutableListOf()
+
+    private lateinit var mainActivity: MainActivity
 
     companion object {
         val TAG: String = PlacesFragment::class.java.simpleName
@@ -49,10 +54,17 @@ class PlacesFragment : Fragment() {
         val db = DatabaseHandler(this.context)
         //db.deleteData()
 
-        places = db.readData()
+        val mAuth = FirebaseAuth.getInstance()
+
+        places = db.readData(mAuth.currentUser?.email!!)
         val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(activity)
         rvPlaces.layoutManager = layoutManager
-        rvPlaces.adapter = PlaceAdapter(places, activity)
+        rvPlaces.adapter = PlaceAdapter(places, mainActivity)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
     }
 
 

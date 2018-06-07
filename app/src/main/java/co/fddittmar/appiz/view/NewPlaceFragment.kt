@@ -11,6 +11,7 @@ import android.widget.Toast
 import co.fddittmar.appiz.R
 import co.fddittmar.appiz.db.DatabaseHandler
 import co.fddittmar.appiz.model.Place
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_new_place.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,8 +51,10 @@ class NewPlaceFragment : Fragment() {
 
         btnSavePlace.setOnClickListener {
 
-            if (!etPlaceName.text.isBlank() && !etPlacePrice.text.isBlank() && !etPlacePhoneNumber.text.isBlank()){
-                val place = Place(etPlaceName.text.toString(), etPlacePrice.text.toString().toFloat(), etPlacePhoneNumber.text.toString())
+            val mAuth = FirebaseAuth.getInstance()
+
+            if (mAuth.currentUser?.email != null &&!etPlaceName.text.isBlank() && !etPlacePrice.text.isBlank() && !etPlacePhoneNumber.text.isBlank()){
+                val place = Place(mAuth.currentUser?.email!!, etPlaceName.text.toString(), etPlacePrice.text.toString().toFloat(), etPlacePhoneNumber.text.toString())
                 db.insertData(place)
             }
             else{

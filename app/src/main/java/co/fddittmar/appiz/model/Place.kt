@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName
  * Created by Fernnando on 14/04/2018.
  */
 class Place {
-    constructor(name: String, price: Float, phoneNumber: String) {
+    constructor(username: String, name: String, price: Float, phoneNumber: String) {
+        this.username = username
         this.name = name
         this.price = price
         this.phoneNumber = phoneNumber
@@ -18,6 +19,7 @@ class Place {
 
 
     var id: Int = 0
+    var username: String = ""
     var name: String = ""
     var price: Float = 0.0f
     var phoneNumber: String = ""

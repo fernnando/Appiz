@@ -3,6 +3,7 @@ package co.fddittmar.appiz
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,19 +25,40 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        if(mAuth.currentUser != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         // println("Teste")
         // println(mAuth.currentUser)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build()
+//
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        sign_in_button.setOnClickListener({
+        btnSignIn.setOnClickListener({
             println("Button clicked")
             googleSignIn()
         })
+
+        btnSignUp.setOnClickListener({
+            tilConfirmPassword.visibility = View.VISIBLE
+            btnSignIn.visibility = View.GONE
+            btnSignUp.visibility = View.GONE
+            btnCreateAccount.visibility = View.VISIBLE
+        })
+
+        btnCreateAccount.setOnClickListener {
+            if(etLogin.text.isBlank() || etPassword.text.isBlank() || etConfirmPassword.text.isBlank() || (etPassword.text.toString() != etConfirmPassword.text.toString()))
+                Toast.makeText(this, "Please check all fields", Toast.LENGTH_LONG).show()
+            else
+                createNewUser(etLogin.text.toString(), etPassword.text.toString())
+
+        }
 
 
         btnSignIn.setOnClickListener {
@@ -80,6 +102,29 @@ class LoginActivity : AppCompatActivity() {
     private fun googleSignIn() {
         val signInIntent = mGoogleSignInClient.getSignInIntent()
         startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    private fun createNewUser(username: String, password: String){
+        mAuth.createUserWithEmailAndPassword(username, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        //val user = mAuth.currentUser
+                        Toast.makeText(this, "Account successfully created!", Toast.LENGTH_LONG).show()
+                        tilConfirmPassword.visibility = View.GONE
+                        btnSignIn.visibility = View.VISIBLE
+                        btnSignUp.visibility = View.VISIBLE
+                        btnCreateAccount.visibility = View.GONE
+                        //updateUI(user)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(this, "Please check all fields", Toast.LENGTH_LONG).show()
+                        println(task.exception)
+                        //updateUI(null)
+                    }
+
+                    // ...
+                }
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
