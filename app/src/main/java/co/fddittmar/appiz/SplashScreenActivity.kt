@@ -18,8 +18,8 @@ class SplashScreenActivity : AppCompatActivity() {
             if(userIsLogged)
                 startMainActivity()
             else
-                //startLoginActivity()
-                startMainActivity()
+                startLoginActivity()
+                //startMainActivity()
             finish()
         }, 2000)
 

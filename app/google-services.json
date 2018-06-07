@@ -15,6 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "170222350654-h4amf6gc3ut947jmbdl6j1smb5knq2se.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.fddittmar.appiz",
+            "certificate_hash": "4896c31163b75be48361d5e27ff143afbfd38154"
+          }
+        },
+        {
+          "client_id": "170222350654-ui30orc6dpt1cbi2j36vgql0mvr8kmho.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "170222350654-vu61gvkuj21u009libdmfn9atkbpikba.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -40,7 +52,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "170222350654-pqde374i557butb1ebt4qk6uhg5jiqqc.apps.googleusercontent.com",
+              "client_id": "170222350654-ui30orc6dpt1cbi2j36vgql0mvr8kmho.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

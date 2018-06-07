@@ -3,6 +3,7 @@ package co.fddittmar.appiz
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -37,12 +38,34 @@ class LoginActivity : AppCompatActivity() {
             googleSignIn()
         })
 
-/*        mAuth.createUserWithEmailAndPassword("fernnando@email.teste", "senha12345")
+
+        btnSignIn.setOnClickListener {
+            mAuth.signInWithEmailAndPassword(etLogin.text.toString(), etPassword.text.toString())
+                    .addOnCompleteListener(this){ task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //val user = mAuth.currentUser
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                            //updateUI(user)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(this, "Invalid credentials.", Toast.LENGTH_LONG).show()
+                            //updateUI(null)
+                        }
+                    }
+        }
+
+
+
+        /*mAuth.createUserWithEmailAndPassword("fernnando@email.teste", "senha12345")
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         //val user = mAuth.currentUser
-                        println("Created user")
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.

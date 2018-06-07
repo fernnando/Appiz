@@ -50,12 +50,10 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/imageContainer"
-        android:background="@drawable/dotted_line"
-        android:layerType="software"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilPlacePhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -65,13 +63,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilPlacePrice">
 
+        <EditText
+            android:id="@+id/etPlacePhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dotted_line"
+        android:layerType="software"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPlacePhoneNumber">
+
         <TextView
             android:id="@+id/tvAddPlacePicture"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:gravity="center"
             android:text=" + Add a picture"
             android:textColor="@color/colorPrimary"
-            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
