@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import co.fddittmar.appiz.R
 import co.fddittmar.appiz.model.Place
 import kotlinx.android.synthetic.main.fragment_place_details.*
+import android.support.v4.content.ContextCompat.startActivity
+import android.content.Intent
+import android.widget.Toast
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +41,21 @@ class PlaceDetailsFragment : Fragment() {
         tvPlaceTitle.text = place.name
         tvPrice.text = place.price.toString()
         tvPhoneNumber.text = place.phoneNumber
+
+        btnShare.setOnClickListener({
+
+            val placeDescription = "${place.name} - R$ ${place.price} \nTEL.:${place.phoneNumber}"
+            val whatsappIntent = Intent(Intent.ACTION_SEND)
+            whatsappIntent.type = "text/plain"
+            whatsappIntent.`package` = "com.whatsapp"
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, placeDescription)
+            try {
+                activity.startActivity(whatsappIntent)
+            } catch (ex: android.content.ActivityNotFoundException) {
+                Toast.makeText(this.context, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
 
