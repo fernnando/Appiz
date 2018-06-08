@@ -1,11 +1,12 @@
 package co.fddittmar.appiz.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by Fernnando on 14/04/2018.
  */
-class Place {
+class Place: Serializable {
     constructor(username: String, name: String, price: Float, phoneNumber: String) {
         this.username = username
         this.name = name

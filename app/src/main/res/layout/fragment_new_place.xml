@@ -46,7 +46,8 @@
             android:id="@+id/etPlacePrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Place Price" />
+            android:hint="Place Price"
+            android:inputType="numberDecimal" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -67,7 +68,8 @@
             android:id="@+id/etPlacePhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number" />
+            android:hint="Phone Number"
+            android:inputType="phone" />
 
     </android.support.design.widget.TextInputLayout>
 

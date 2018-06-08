@@ -30,9 +30,11 @@ private const val ARG_PARAM2 = "param2"
 class PlacesFragment : Fragment() {
 
 
-    private var places: MutableList<Place> = mutableListOf()
+    var places: MutableList<Place> = mutableListOf()
 
     private lateinit var mainActivity: MainActivity
+    val mAuth = FirebaseAuth.getInstance()
+    lateinit var db: DatabaseHandler
 
     companion object {
         val TAG: String = PlacesFragment::class.java.simpleName
@@ -50,21 +52,25 @@ class PlacesFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        db = DatabaseHandler(this.context)
 
-        val db = DatabaseHandler(this.context)
         //db.deleteData()
 
-        val mAuth = FirebaseAuth.getInstance()
+        reloadData()
 
-        places = db.readData(mAuth.currentUser?.email!!)
         val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(activity)
         rvPlaces.layoutManager = layoutManager
-        rvPlaces.adapter = PlaceAdapter(places, mainActivity)
+        rvPlaces.adapter = PlaceAdapter(places, mainActivity, this)
+
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+    }
+
+    fun reloadData(){
+        places = db.readData(mAuth.currentUser?.email!!)
     }
 
 

@@ -1,12 +1,14 @@
 package co.fddittmar.appiz.view
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import co.fddittmar.appiz.MainActivity
 
 import co.fddittmar.appiz.R
 import co.fddittmar.appiz.db.DatabaseHandler
@@ -25,19 +27,25 @@ private const val ARG_PARAM2 = "param2"
  */
 class NewPlaceFragment : Fragment() {
 
+    var isEditMode: Boolean = false
+    lateinit var place: Place
+    lateinit var mainActivity: MainActivity
+
     companion object {
         val TAG: String = NewPlaceFragment::class.java.simpleName
         fun newInstance() = NewPlaceFragment()
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
         val view: View = inflater.inflate(R.layout.fragment_new_place, container, false)
-
-
-
-
 
 
         return view
@@ -48,18 +56,43 @@ class NewPlaceFragment : Fragment() {
 
         val db = DatabaseHandler(this.context)
 
+        if(arguments != null){
+            isEditMode = true
+            place = arguments.getSerializable("place") as Place
+
+            etPlaceName.setText(place.name)
+            etPlacePrice.setText(place.price.toString())
+            etPlacePhoneNumber.setText(place.phoneNumber)
+
+        }
+
+
 
         btnSavePlace.setOnClickListener {
-
             val mAuth = FirebaseAuth.getInstance()
 
-            if (mAuth.currentUser?.email != null &&!etPlaceName.text.isBlank() && !etPlacePrice.text.isBlank() && !etPlacePhoneNumber.text.isBlank()){
-                val place = Place(mAuth.currentUser?.email!!, etPlaceName.text.toString(), etPlacePrice.text.toString().toFloat(), etPlacePhoneNumber.text.toString())
-                db.insertData(place)
+            if(isEditMode){
+                if (mAuth.currentUser?.email != null &&!etPlaceName.text.isBlank() && !etPlacePrice.text.isBlank() && !etPlacePhoneNumber.text.isBlank()){
+                    place.name = etPlaceName.text.toString()
+                    place.price = etPlacePrice.text.toString().toFloat()
+                    place.phoneNumber = etPlacePhoneNumber.text.toString()
+                    db.updateData(place)
+                    mainActivity.detachFragment()
+                    mainActivity.supportFragmentManager.beginTransaction().add(R.id.container, PlacesFragment(), "places").commit()
+                }
+
+            }else {
+                if (mAuth.currentUser?.email != null &&!etPlaceName.text.isBlank() && !etPlacePrice.text.isBlank() && !etPlacePhoneNumber.text.isBlank()){
+                    val place = Place(mAuth.currentUser?.email!!, etPlaceName.text.toString(), etPlacePrice.text.toString().toFloat(), etPlacePhoneNumber.text.toString())
+                    db.insertData(place)
+                }
+                else{
+                    Toast.makeText(this.context, "There was an error during your request.", Toast.LENGTH_LONG).show()
+                }
             }
-            else{
-                Toast.makeText(this.context, "There was an error during your request.", Toast.LENGTH_LONG).show()
-            }
+
+
+
 
 
         }

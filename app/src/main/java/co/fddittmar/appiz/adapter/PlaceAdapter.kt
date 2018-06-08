@@ -1,7 +1,6 @@
 package co.fddittmar.appiz.adapter
 
 import android.Manifest
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.Adapter
 import android.view.LayoutInflater
@@ -15,22 +14,31 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AlertDialog
+import android.widget.Toast
 import co.fddittmar.appiz.MainActivity
+import co.fddittmar.appiz.db.DatabaseHandler
+import co.fddittmar.appiz.view.NewPlaceFragment
+import co.fddittmar.appiz.view.PlaceDetailsFragment
+import co.fddittmar.appiz.view.PlacesFragment
+import kotlinx.android.synthetic.main.fragment_places.*
+import java.io.Serializable
 
 
 /**
  * Created by Fernnando on 14/04/2018.
  */
 class PlaceAdapter(private val places: List<Place>,
-                   private val context: MainActivity) : Adapter<PlaceAdapter.ViewHolder>() {
+                   private val context: MainActivity,
+                   private val placesFragment: PlacesFragment) : Adapter<PlaceAdapter.ViewHolder>() {
 
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val place = places[position]
 
-        holder?.bindView(place, context)
+        holder?.bindView(place, context, placesFragment)
 
     }
 
@@ -45,12 +53,34 @@ class PlaceAdapter(private val places: List<Place>,
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        fun bindView(place: Place, context: MainActivity) {
+        fun bindView(place: Place, context: MainActivity, placesFragment: PlacesFragment) {
             val title = itemView.tvTitle
             val description = itemView.tvDescription
 
             title.text = place.name
             description.text = place.price.toString()
+
+            itemView.setOnClickListener({
+                context.detachFragment()
+                val placeFragment = PlaceDetailsFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("place", place as Serializable)
+                placeFragment.arguments = bundle
+
+
+                context.supportFragmentManager.beginTransaction().add(R.id.container, placeFragment, "details").commit()
+            })
+
+            itemView.btnEdit.setOnClickListener {
+                context.detachFragment()
+                val newPlaceFragment = NewPlaceFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("place", place as Serializable)
+                newPlaceFragment.arguments = bundle
+
+
+                context.supportFragmentManager.beginTransaction().add(R.id.container, newPlaceFragment, "edit").commit()
+            }
 
             itemView.btnCall.setOnClickListener({
 
@@ -77,6 +107,28 @@ class PlaceAdapter(private val places: List<Place>,
                 }
 
             })
+
+            itemView.setOnLongClickListener {
+                val dialog = AlertDialog.Builder(context).setTitle(R.string.delete).setMessage(R.string.delete_confirmation)
+                        .setPositiveButton(R.string.confirm, { dialog, i ->
+                            val db = DatabaseHandler(context)
+                            db.deleteData(place.id.toString())
+                            placesFragment.places.removeAt(adapterPosition)
+                            placesFragment.rvPlaces.adapter.notifyItemRemoved(adapterPosition)
+
+                            Toast.makeText(context, R.string.delete_message, Toast.LENGTH_LONG).show()
+                        })
+                        .setNegativeButton(R.string.cancel, { dialog, i -> })
+
+                dialog.show()
+
+
+                // Display the alert dialog on app interface
+
+                return@setOnLongClickListener true
+
+
+            }
 
         }
 

@@ -80,24 +80,28 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context,DATABASE_
         return list
     }
 
-    fun deleteData(){
+    fun deleteData(id: String){
         val db = this.writableDatabase
-        db.delete(TABLE_NAME,null,null)
+        db.delete(TABLE_NAME, COL_ID + "=?", arrayOf(id))
         db.close()
     }
 
 
-    fun updateData() {
+    fun updateData(place: Place) {
         val db = this.writableDatabase
-        val query = "Select * from " + TABLE_NAME
+        val query = "Select * from " + TABLE_NAME + " where " + COL_ID + "=" + place.id.toString()
         val result = db.rawQuery(query,null)
         if(result.moveToFirst()){
             do {
                 var cv = ContentValues()
-                cv.put(COL_PRICE,(result.getInt(result.getColumnIndex(COL_PRICE))+1))
-                db.update(TABLE_NAME,cv,COL_ID + "=? AND " + COL_NAME + "=?",
-                        arrayOf(result.getString(result.getColumnIndex(COL_ID)),
-                                result.getString(result.getColumnIndex(COL_NAME))))
+                cv.put(COL_USERNAME, place.username)
+                cv.put(COL_NAME,place.name)
+                cv.put(COL_PRICE,place.price)
+                cv.put(COL_PHONE_NUMBER, place.phoneNumber)
+                cv.put(COL_LATITUDE, place.latitude)
+                cv.put(COL_LONGITUDE, place.longitude)
+                db.update(TABLE_NAME,cv,COL_ID + "=?",
+                        arrayOf(place.id.toString()))
             }while (result.moveToNext())
         }
 

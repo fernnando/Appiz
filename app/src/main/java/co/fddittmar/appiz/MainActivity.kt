@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         initFragment(savedInstanceState)
         phoneNumberPermission()
 
+
+
         Toast.makeText(this, mAuth.currentUser?.email, Toast.LENGTH_LONG).show()
 
     }
@@ -93,13 +95,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return findFragmentByTag(position.getTag()) ?: position.createFragment()
     }
 
-    private fun detachFragment() {
+    fun detachFragment() {
         supportFragmentManager.findFragmentById(R.id.container)?.also {
             supportFragmentManager.beginTransaction().detach(it).commit()
         }
     }
 
-    private fun attachFragment(fragment: Fragment, tag: String) {
+    public fun attachFragment(fragment: Fragment, tag: String) {
         if (fragment.isDetached) {
             supportFragmentManager.beginTransaction().attach(fragment).commit()
         } else {
