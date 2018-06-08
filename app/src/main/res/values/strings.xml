@@ -29,6 +29,10 @@
     <string name="username">Username</string>
     <string name="login">Login</string>
     <string name="developed_by">Developed by Fernnando Dittmar</string>
+    <string name="place_name">Place Name</string>
+    <string name="place_price">Place Price</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="save">Save</string>
 
 
 </resources>
