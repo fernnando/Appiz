@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private val KEY_POSITION = "keyPosition"
     private val CALL_REQUEST = 100
+    private val LOCATION_REQUEST = 101
     var mAuth = FirebaseAuth.getInstance()
 
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.PLACES
@@ -43,10 +44,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         initBottomNavigation()
         initFragment(savedInstanceState)
         phoneNumberPermission()
+        locationPermission()
 
 
 
-        Toast.makeText(this, mAuth.currentUser?.email, Toast.LENGTH_LONG).show()
+        //Toast.makeText(this, mAuth.currentUser?.email, Toast.LENGTH_LONG).show()
 
     }
 
@@ -126,6 +128,22 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         arrayOf(Manifest.permission.CALL_PHONE),
                         CALL_REQUEST)
             }
+        }
+
+    }
+
+    fun locationPermission(): Boolean {
+        return if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this as Activity,
+                            Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                        LOCATION_REQUEST)
+            }
+            false
+        }else{
+            true
         }
 
     }

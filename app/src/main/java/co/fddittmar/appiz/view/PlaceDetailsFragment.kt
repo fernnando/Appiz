@@ -56,6 +56,13 @@ class PlaceDetailsFragment : Fragment() {
             }
 
         })
+
+        btnShowMap.setOnClickListener({
+            val intent = Intent(this.context, MapsActivity::class.java)
+            intent.putExtra("latitude", place.latitude)
+            intent.putExtra("longitude", place.longitude)
+            startActivity(intent)
+        })
     }
 
 

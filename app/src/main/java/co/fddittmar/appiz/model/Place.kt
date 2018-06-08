@@ -14,8 +14,13 @@ class Place: Serializable {
         this.phoneNumber = phoneNumber
     }
 
-    constructor(name: String, price: Float, latitude: Double, longitude: Double){
-
+    constructor(username: String, name: String, price: Float, phoneNumber: String, latitude: Double, longitude: Double){
+        this.username = username
+        this.name = name
+        this.price = price
+        this.phoneNumber = phoneNumber
+        this.latitude = latitude
+        this.longitude = longitude
     }
 
 

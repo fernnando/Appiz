@@ -5,12 +5,26 @@
     <string name="title_about">Sobre</string>
     <string name="phone_permission_denied">Permissão negada.</string>
     <string name="price">Preço:</string>
-    <string name="phone">Phone:</string>
+    <string name="phone">Tel:</string>
     <string name="delete_confirmation">Você tem certeza que deseja apagar este imóvel?</string>
     <string name="delete_message">Imóvel removido!</string>
     <string name="delete">Deletar</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="whatsapp_not_installed">Whatsapp não está instalado.</string>
+    <string name="check_fields">Algo de errado aconteceu. Confira os dados inseridos.</string>
+    <string name="location_added">Sua localização foi inserido no imóvel.</string>
+    <string name="add_location">Adicionar localização</string>
+    <string name="map">Mapa</string>
+    <string name="share">Compartilhar</string>
+    <string name="create_account">Criar conta</string>
+    <string name="sign_up">cadastrar</string>
+    <string name="sign_in">entrar</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="password">Senha</string>
+    <string name="username">Usuário</string>
+    <string name="login">Login</string>
+    <string name="developed_by">Desenvolvido por Fernnando Dittmar</string>
 
 
 </resources>
