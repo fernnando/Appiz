@@ -7,14 +7,31 @@
     android:orientation="vertical"
     tools:context="co.fddittmar.appiz.LoginActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/login" />
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="28dp"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/login" />
+    </LinearLayout>
+
+
 
 
 
@@ -88,6 +105,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:text="@string/sign_in"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:layout_weight="1" />
 
         <Button
@@ -100,6 +119,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/sign_up"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+
+
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -110,6 +133,9 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+
         android:text="@string/create_account"
         android:visibility="gone"/>
 

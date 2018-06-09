@@ -89,6 +89,11 @@ class NewPlaceFragment : Fragment() {
             etPlacePhoneNumber.setText(place.phoneNumber)
 
         }
+        else{
+            etPlaceName.setText("")
+            etPlacePrice.setText("")
+            etPlacePhoneNumber.setText("")
+        }
 
         btnAddLocation.setOnClickListener({
             if(mLastLocation != null){

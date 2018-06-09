@@ -33,6 +33,10 @@
     <string name="place_price">Place Price</string>
     <string name="phone_number">Phone Number</string>
     <string name="save">Save</string>
+    <string name="check_all_fields">Please check all fields. Username must be a valid email and password must have more than 6 characters.</string>
+    <string name="invalid_credentials">Invalid credentials.</string>
+    <string name="account_created">Account successfully created!</string>
+    <string name="location_not_set">Location not found!</string>
 
 
 </resources>

@@ -7,11 +7,6 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".view.PlaceDetailsFragment">
 
-    <ImageView
-        android:id="@+id/ivPlace"
-        android:layout_width="match_parent"
-        android:layout_height="150dp" />
-
     <TextView
         android:id="@+id/tvPlaceTitle"
         android:layout_width="match_parent"
@@ -20,12 +15,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:textSize="24sp"
-        tools:text="Teste"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPlace" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Teste" />
 
     <TextView
         android:id="@+id/lbPrice"
@@ -56,8 +52,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:textStyle="bold"
         android:text="@string/phone"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/tvPhoneNumber"
         app:layout_constraintTop_toBottomOf="@+id/tvPlaceTitle" />
 
@@ -73,31 +69,36 @@
 
     <Button
         android:id="@+id/btnShare"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimary"
         android:text="@string/share"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btnShowMap"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbPrice" />
 
     <Button
         android:id="@+id/btnShowMap"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/colorPrimary"
         android:text="@string/map"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnShare" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnShare"
+        app:layout_constraintTop_toTopOf="@+id/btnShare" />
 
 
 </android.support.constraint.ConstraintLayout>

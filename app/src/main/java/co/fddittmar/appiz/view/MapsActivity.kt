@@ -17,13 +17,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
+    private var placeName: String = "Place"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        placeName = getString(R.string.title_places)
+
         intent.extras.getDouble("latitude").let { latitude = it }
         intent.extras.getDouble("longitude").let { longitude = it }
+        intent.extras.getString("placeName").let { placeName = it }
+
+        supportActionBar?.title = placeName
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -44,6 +50,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        println(latitude.toString() + longitude.toString())
         if(latitude != 0.0 && longitude != 0.0){
             val placeCoordinates = LatLng(latitude, longitude)
             mMap.addMarker(MarkerOptions().position(placeCoordinates))

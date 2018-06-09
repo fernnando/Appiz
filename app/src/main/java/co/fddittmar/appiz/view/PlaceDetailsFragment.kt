@@ -58,10 +58,18 @@ class PlaceDetailsFragment : Fragment() {
         })
 
         btnShowMap.setOnClickListener({
-            val intent = Intent(this.context, MapsActivity::class.java)
-            intent.putExtra("latitude", place.latitude)
-            intent.putExtra("longitude", place.longitude)
-            startActivity(intent)
+            if(place.latitude != 0.0 && place.longitude!= 0.0){
+                val intent = Intent(this.context, MapsActivity::class.java)
+                intent.putExtra("latitude", place.latitude)
+                intent.putExtra("longitude", place.longitude)
+                intent.putExtra("placeName", place.name)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this.context, getString(R.string.location_not_set), Toast.LENGTH_SHORT).show()
+
+            }
+
         })
     }
 

@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
         btnCreateAccount.setOnClickListener {
             if(etLogin.text.isBlank() || etPassword.text.isBlank() || etConfirmPassword.text.isBlank() || (etPassword.text.toString() != etConfirmPassword.text.toString()))
-                Toast.makeText(this, "Please check all fields", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.check_all_fields), Toast.LENGTH_LONG).show()
             else
                 createNewUser(etLogin.text.toString(), etPassword.text.toString())
 
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                             //updateUI(user)
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(this, "Invalid credentials.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, getString(R.string.invalid_credentials), Toast.LENGTH_LONG).show()
                             //updateUI(null)
                         }
                     }
@@ -110,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         //val user = mAuth.currentUser
-                        Toast.makeText(this, "Account successfully created!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_LONG).show()
                         tilConfirmPassword.visibility = View.GONE
                         btnSignIn.visibility = View.VISIBLE
                         btnSignUp.visibility = View.VISIBLE
@@ -118,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(this, "Please check all fields", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.check_all_fields), Toast.LENGTH_LONG).show()
                         println(task.exception)
                         //updateUI(null)
                     }

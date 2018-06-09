@@ -29,6 +29,10 @@
     <string name="place_price">Preço</string>
     <string name="phone_number">Telefone</string>
     <string name="save">Salvar</string>
+    <string name="check_all_fields">Confira todos os campos. O nome de usuário deve ser um email válido e a senha deve contem ao menos 6 caracteres.</string>
+    <string name="invalid_credentials">Invalid credentials.</string>
+    <string name="account_created">Conta criada com sucesso!</string>
+    <string name="location_not_set">Localização não cadastrada!</string>
 
 
 </resources>
